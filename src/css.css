@@ -1,0 +1,113 @@
+html {
+    background-color: #000A;
+    text-align: center;
+    transition: all .3s ease-in-out;
+}
+html:hover {
+    background-color: #000;
+}
+
+.spacer {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    margin: 0;
+    -webkit-app-region: drag;
+}
+#title_bar {
+    display: flex;
+    height: 24px;
+    text-align: left;
+    margin-bottom: 5px;
+    padding-bottom: 2.5px;
+    border-bottom: 1px solid #888;
+}
+#title_bar > button {
+    height: 21px;
+}
+
+#minimize_button {
+    background-color: transparent;
+    border: 1px solid #888;
+    border-radius: 2px;
+    color: #FFF;
+    transition: all .2s ease-in-out;
+}
+#minimize_button:hover {
+    background-color: #888B;
+}
+#minimize_button:active {
+    background-color: #8888;
+}
+#close_button {
+    background-color: transparent;
+    border: 1px solid #888;
+    border-radius: 2px;
+    color: #FFF;
+    transition: all .2s ease-in-out;
+}
+#close_button:hover {
+    background-color: #D00;
+}
+#close_button:active {
+    background-color: #B00;
+}
+
+td > span {
+    color: #DD0;
+    font-size: 20px;
+}
+span.written {
+    color: #FFF;
+}
+table {
+    border: 2px solid #DD0;
+    height: auto;
+    transition: all .3s ease-in-out;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+td {
+    border: 2px solid #DD0;
+    height: 24px;
+    padding: 16px 5px;
+    text-align: center;
+}
+button:not(#minimize_button, #close_button) {
+    background-color: transparent;
+    border: 1px solid #888;
+    border-radius: 2px;
+    color: #FFF;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+button:not(#minimize_button, #close_button):hover {
+    background-color: #888B;
+}
+button:not(#minimize_button, #close_button):active {
+    background-color: #8888;
+}
+
+button {
+    margin: 0px 2px;
+}
+
+select {
+    background-color: transparent;
+    color: #FFF;
+    font-size: 20px;
+}
+option {
+    color: #000;
+}
+
+h3 {
+    color: #FFF;
+}
+div#show_time {
+    text-align: left;
+}
+
+hr {
+    border-color: #8888;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./css.css">
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+        <title>表格</title>
+    </head>
+    <body style="user-select: none;">
+        <div id="title_bar">
+            <button id="manage_button" title="管理">管理</button>
+            <button id="ranking_button" title="排行榜">排行榜</button>
+
+            <div class="spacer"></div>
+
+            <input type="checkbox" id="top" title="切换窗口置顶" style="filter: opacity(0.8);" onchange="toggle_top()" /><label style="font-size: 12px; color: #FFFC;" for="top">置顶窗口</label>
+            <button id="minimize_button" title="最小化">-</button>
+            <button id="close_button" title="关闭">×</button>
+        </div>
+        <div id="main">
+            <table id="main_table">
+                <tr>
+                    <td><span>日期</span></td>
+                    <td colspan="3">
+                        <span id="year" class="written"></span>
+                        <span>年</span>
+                        <span id="month" class="written"></span>
+                        <span>月</span>
+                        <span id="day" class="written"></span>
+                        <span>日</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span>应到人数</span></td>
+                    <td><span class="written" id="all-students-quantity">3</span></td>
+                    <td><span>实到人数</span></td>
+                    <td><span id="students-quantity" class="written">3</span></td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><span>请假人姓名</span></td>
+                    <td rowspan="3" colspan="3" id="leave_students">
+                        <button id="add_button" onclick="add_student()" title="添加请假学生">+</button>
+                        <button id="remove_button" onclick="remove_student()" title="删除最后一个请假学生">-</button>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <div id="show_time">
+                <h3 id="day_of_week"></h3>
+                <h3 id="time" onclick="update_time()"></h3>
+            </div>
+            <div id="random_name">
+                <button id="pick_button" onclick="random_name()" title="随机点名">随机点名</button>
+            </div>
+        </div>
+        <script src="./renderer.js"></script>
+    </body>
+</html>

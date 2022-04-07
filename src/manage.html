@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>管理</title>
+        <link rel="stylesheet" type="text/css" href="./mdui-v1.0.2/css/mdui.min.css">
+        <style>
+            .settings-area {
+                border: 1px solid #888;
+                text-align: center;
+                padding: 15px 4%;
+                margin-top: 1em;
+            }
+            p {
+                margin: 5px 0px;
+            }
+            #student_list > option{
+                height: 18px;
+            }
+            #score_list > option{
+                height: 18px;
+            }
+        </style>
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+    </head>
+    <body style="user-select: none; padding: 0 2%;" class="mdui-theme-primary-blue mdui-theme-accent-blue">
+        <div id="settings" class="settings-area">
+            <p><b>设置</b></p>
+            <label for="enable_random_name" class="mdui-checkbox">
+                <input type="checkbox" id="enable_random_name" onchange='save_settings("table_enable_random_name")' />
+                <i class="mdui-checkbox-icon"></i>
+                启用随机点名
+            </label><br>
+            <label for="enable_date_showing" class="mdui-checkbox">
+                <input type="checkbox" id="enable_date_showing" onchange='save_settings("table_enable_date_showing")' />
+                <i class="mdui-checkbox-icon"></i>
+                启用星期显示
+            </label><br>
+            <label for="enable_time_showing" class="mdui-checkbox">
+                <input type="checkbox" id="enable_time_showing" onchange='save_settings("table_enable_time_showing")' />
+                <i class="mdui-checkbox-icon"></i>
+                启用时间显示
+            </label><br>
+            <p style="color: grey; font-size: 14px;" class="mdui-typo">要立即查看以上设置更改后效果，需要<a onclick="ipcRenderer.send('reload');" style="cursor: pointer;">重新加载主页面</a>。</p>
+        </div>
+
+        <div id="students" class="settings-area">
+            <p><b>学生管理</b></p>
+            <select style="width: 100px; outline: none;" size="10" id="student_list" onchange="document.getElementById('score_list').selectedIndex = document.getElementById('student_list').selectedIndex"></select>
+            <select style="width: 100px; outline: none;" size="10" id="score_list" disabled></select><br>
+            <button id="increase_score" onclick="increase_score()" class="mdui-btn mdui-ripple mdui-color-theme-accent mdui-btn-icon" title="给选中学生加 1 分"><i class="mdui-icon material-icons">exposure_plus_1</i></button>
+            <button id="decrease_score" onclick="decrease_score()" class="mdui-btn mdui-ripple mdui-color-theme-accent mdui-btn-icon" title="给选中学生扣 1 分"><i class="mdui-icon material-icons">exposure_neg_1</i></button>
+            <button id="remove_student" onclick="remove_student()" class="mdui-btn mdui-ripple mdui-color-red mdui-btn-icon" title="删除选中学生"><i class="mdui-icon material-icons">delete</i></button><br>
+            <button id="edit_with_notepad" onclick="edit_with_notepad()" class="mdui-btn mdui-ripple mdui-color-theme-accent">使用 Windows 记事本编辑</button><br>
+            <div>
+                <div class="mdui-textfield mdui-textfield-floating-label" style="text-align: left; display: inline-block;">
+                    <label class="mdui-textfield-label">学生姓名</label>
+                    <input class="mdui-textfield-input" id="add_student_input" />
+                </div>
+                <button id="add_student" onclick="add_student()" class="mdui-btn mdui-ripple mdui-color-theme-accent" style="display: inline-block; vertical-align: middle; position: relative; bottom: 24px;">添加学生</button>
+            </div>
+        </div>
+
+        <div id="reset_password" class="settings-area">
+            <p><b>重置密码</b></p>
+            <button id="start_reset_password_button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick='$("#start_reset_password").css("display", "block");$("#start_reset_password_button").css("display", "none")'>重置密码</button>
+            <div id="start_reset_password" style="display: none;">
+                <div class="mdui-textfield mdui-textfield-floating-label" style="text-align: left; padding-top: 0 !important;">
+                    <label class="mdui-textfield-label">原密码</label>
+                    <input class="mdui-textfield-input" id="original_password" type="password" />
+                </div>
+                <div class="mdui-textfield mdui-textfield-floating-label" style="text-align: left; padding-top: 0 !important;">
+                    <label class="mdui-textfield-label">新密码</label>
+                    <input class="mdui-textfield-input" id="new_password" type="password" />
+                </div>
+                <div class="mdui-textfield mdui-textfield-floating-label" style="text-align: left; padding-top: 0 !important;">
+                    <label class="mdui-textfield-label">再次输入新密码</label>
+                    <input class="mdui-textfield-input" id="confirm_password" type="password" />
+                </div>
+                <button onclick="reset_password()" class="mdui-btn mdui-ripple mdui-color-theme-accent">确定</button>
+                <button class="mdui-btn mdui-ripple" onclick='$("#start_reset_password").css("display", "none");$("#start_reset_password_button").css("display", "inline");'>取消</button>
+            </div>
+        </div>
+
+        <div id="developer" class="settings-area">
+            <p><b>其他</b></p>
+            <button id="reload_button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="ipcRenderer.send('reload');">重新加载主页面</button>
+            <button id="reload_button" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="ipcRenderer.send('relaunch_app');">重新启动程序</button>
+            <button id="open_devtools" class="mdui-btn mdui-ripple mdui-color-theme-accent" onclick="ipcRenderer.send('toggle_devtools');">切换 Chromium Devtools</button>
+        </div>
+
+        <p style="color: #BBB; font-size: 14px;">v1.8.1</p>
+        <script src="./manage.js"></script>
+        <script src="./mdui-v1.0.2/js/mdui.min.js"></script>
+    </body>
+</html>
